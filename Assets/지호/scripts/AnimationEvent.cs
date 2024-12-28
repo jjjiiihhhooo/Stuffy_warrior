@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AnimationEvent : MonoBehaviour
 {
-    
     public void ReadyExit()
     {
+        if (Player.Instance.isDestroyMeat)
+        {
+            Player.Instance.isDestroyMeat = false;
+            FindObjectOfType<MeatTrigger>().DestroyCall();
+        }
+
         Player.Instance.Move();
     }
 

@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 
     public bool isMeat;
 
+    public bool isDestroyMeat;
+
     private void Awake()
     {
         Instance = this;
@@ -33,11 +35,6 @@ public class Player : MonoBehaviour
     private void Init()
     {
         dir = Dir.Front;
-        GameManager.Instance.Cam.Cams[1].Follow = actionCam;
-        GameManager.Instance.Cam.Cams[1].LookAt = actionCam;
-        GameManager.Instance.Cam.Cams[2].Follow = moveCam;
-        GameManager.Instance.Cam.Cams[2].LookAt = moveCam;
-
     }
 
     public Dir GetPlayerDir()

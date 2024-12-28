@@ -5,7 +5,6 @@ using UnityEngine;
 public class MeatTrigger : MonoBehaviour
 {
     public Vector2 pos;
-
     private void Start()
     {
         Setting();
@@ -101,5 +100,16 @@ public class MeatTrigger : MonoBehaviour
 
     }
 
+    public void DestroyCall()
+    {
+        GameManager.Instance.Skill.meatCount--;
+        DeSetting();
+        StartCoroutine(DestroyCor());
+    }
 
+    private IEnumerator DestroyCor()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(this.gameObject);
+    }
 }

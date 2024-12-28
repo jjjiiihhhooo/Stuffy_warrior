@@ -974,9 +974,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5528462076163585080}
   - component: {fileID: 5528462076163585081}
+  - component: {fileID: 1332021418}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1019,9 +1020,23 @@ MonoBehaviour:
   anim: {fileID: 7659460056978226376}
   arrow: {fileID: 2884395693160104891}
   mm: {fileID: 3982339035217328334}
-  playerPos: {x: 5, y: 2}
+  playerPos: {x: 5, y: 5}
   target: {x: 0, y: 0, z: 0}
+  dir: 0
   isMeat: 0
+--- !u!65 &1332021418
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5528462076163585083}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: 0, y: 1.81, z: 0}
 --- !u!1 &5528462077410951960
 GameObject:
   m_ObjectHideFlags: 0

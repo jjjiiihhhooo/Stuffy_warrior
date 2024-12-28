@@ -49,6 +49,10 @@ public class Node : MonoBehaviour
         {
             transform.parent.GetComponentInChildren<EnemyTrigger>().Action(this);
         }
+        else if(type == NodeType.Item)
+        {
+            transform.GetComponentInChildren<MeatTrigger>().Setting();
+        }
     }
 
     public virtual void Damage()
@@ -57,5 +61,7 @@ public class Node : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        
     }
+
 }

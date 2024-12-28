@@ -40,12 +40,27 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject enemy_obj;
     
-
     public Node PlayerNode { get => playerNode; set => playerNode = value; }
     public Nodes[] Nodess { get => nodes; set => nodes = value; }
+    
     public void Init()
     {
-        MapSetting();
+        Setting();
+       // MapSetting();
+    }
+
+    private void Setting()
+    {
+        for(int i = 0; i < nodes.Length; i++)
+        {
+            for (int j = 0; j < nodes[i].node.Length; j++)
+            {
+                nodes[i].node[j] = transforms[i].t[j].GetComponentInChildren<Node>();
+                nodes[i].node[j].NodePos = new Vector2(i, j);
+
+            }
+        }
+        
     }
 
     private void MapSetting()
@@ -207,6 +222,10 @@ public class NodeManager : MonoBehaviour
         {
             for(y = (int)Player.Instance.playerPos.y;  y > -1; y--)
             {
+                if(nodes[x].node[y].type == NodeType.Item)
+                {
+                    Player.Instance.isDestroyMeat = true;
+                }
                 if(nodes[x].node[y].type == NodeType.Wall)
                 {
                     y += 1;
@@ -245,6 +264,10 @@ public class NodeManager : MonoBehaviour
         {
             for (y = (int)Player.Instance.playerPos.y; y < max; y++)
             {
+                if (nodes[x].node[y].type == NodeType.Item)
+                {
+                    Player.Instance.isDestroyMeat = true;
+                }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     y -= 1;
@@ -283,6 +306,10 @@ public class NodeManager : MonoBehaviour
         {
             for (x = (int)Player.Instance.playerPos.x; x > -1; x--)
             {
+                if (nodes[x].node[y].type == NodeType.Item)
+                {
+                    Player.Instance.isDestroyMeat = true;
+                }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     x += 1;
@@ -322,6 +349,10 @@ public class NodeManager : MonoBehaviour
         {
             for (x = (int)Player.Instance.playerPos.x; x < max; x++)
             {
+                if (nodes[x].node[y].type == NodeType.Item)
+                {
+                    Player.Instance.isDestroyMeat = true;
+                }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     x -= 1;
@@ -362,7 +393,7 @@ public class NodeManager : MonoBehaviour
 
     public bool CurNodeCheck()
     {
-        if (playerNode.type == NodeType.Trigger || playerNode.type == NodeType.Enemy)
+        if (playerNode.type == NodeType.Trigger || playerNode.type == NodeType.Enemy || playerNode.type == NodeType.Item)
         {
             return true;
         }

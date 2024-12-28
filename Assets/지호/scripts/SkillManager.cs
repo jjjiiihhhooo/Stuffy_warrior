@@ -11,7 +11,7 @@ public class SkillManager : MonoBehaviour
     public int useCount;
     public int meatCount;
 
-    public bool use;
+    public bool use = true;
 
     public GameObject stun;
     public GameObject smoke;
@@ -24,8 +24,8 @@ public class SkillManager : MonoBehaviour
 
     public void CheckUse()
     {
-        //if (useCount <= 0)
-        //    use = false;
+        if (useCount <= 0)
+            use = false;
     }
 
     public void SelectSkill(int i)
@@ -53,9 +53,9 @@ public class SkillManager : MonoBehaviour
         meatCount++;
 
         n.meat = GameObject.Instantiate(meat, n.transform);
-        n.meat.transform.localPosition = new Vector3(0, 3f, 0);
+        n.meat.transform.localPosition = new Vector3(0, 1f, -0.5f);
         n.meat.GetComponent<MeatTrigger>().pos = n.NodePos;
-
+        n.type = NodeType.Item;
     }
 
     public void ObjectPause(Node n)
@@ -64,7 +64,7 @@ public class SkillManager : MonoBehaviour
         useCount--;
 
         n.stun = GameObject.Instantiate(smoke, n.transform);
-        n.stun.transform.localPosition = new Vector3(0, 3f, 0);
+        n.stun.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public void EnemyPause(Node n)
@@ -73,7 +73,7 @@ public class SkillManager : MonoBehaviour
         useCount--;
 
         n.stun = GameObject.Instantiate(stun, n.transform);
-        n.stun.transform.localPosition = new Vector3(0, 6f, 0);
+        n.stun.transform.localPosition = new Vector3(0, 1f, 0);
     }
 
 }

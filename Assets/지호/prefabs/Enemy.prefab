@@ -46,7 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa456b66f7ec5c64f91753530185fd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paths: []
+  paths:
+  - x: -1
+    y: 0
+  - x: 0
+    y: -1
+  - x: 1
+    y: 0
+  - x: 0
+    y: 1
   curPos: {x: 0, y: 0}
   node: {fileID: 0}
   dot: {fileID: 7933629561540781733}
