@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NodeManager nodeManager;
     [SerializeField] private TurnManager turn;
     [SerializeField] private SkillManager skill;
-    
+
     public UIManager UI { get => ui; }
     public CameraManager Cam { get => cam; }
     public InputSystem Input { get => input; }
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         LoadingSceneManager.LoadScene(mainSceneName);
     }
-    
+
     public void TurnStart()
     {
         turn.turnReady = false;
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             nodeManager.PlayerNode.Damage();
         }
         else if (nodeManager.ClearNodeCheck())
-        { 
+        {
             StageClear();
         }
         else
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
             nodeManager.ChangeDir();
         }
     }
-   
+
     public void TurnReady()
     {
         turn.AddCount();
@@ -119,7 +119,12 @@ public class GameManager : MonoBehaviour
 
     public void ReStart()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
+    public void SceneChange(string name)
+    {
+        LoadingSceneManager.LoadScene(name);
     }
 
     public void GameOver()
@@ -127,4 +132,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver");
         ui.OverUI();
     }
+
 }

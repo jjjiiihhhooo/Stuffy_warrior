@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
@@ -19,7 +17,7 @@ public class CameraManager : MonoBehaviour
 
     private void RemovePriority()
     {
-        for(int i = 0; i < cams.Length; i++)
+        for (int i = 0; i < cams.Length; i++)
         {
             cams[i].Priority = 10;
         }

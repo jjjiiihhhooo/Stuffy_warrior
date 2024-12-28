@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum Dir
@@ -113,7 +112,7 @@ public class Player : MonoBehaviour
     {
         Vector3 target = new Vector3(t.x, transform.position.y, t.z);
 
-        while(Vector3.Distance(transform.position, target) > 0.1f)
+        while (Vector3.Distance(transform.position, target) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, target, 0.8f);
             yield return new WaitForFixedUpdate();
@@ -121,7 +120,7 @@ public class Player : MonoBehaviour
 
         transform.position = target;
 
-        if (GameManager.Instance.NodeManager.PlayerNode.type == NodeType.Enemy || 
+        if (GameManager.Instance.NodeManager.PlayerNode.type == NodeType.Enemy ||
             GameManager.Instance.NodeManager.PlayerNode.type == NodeType.Trigger)
         {
             anim.Play("Dead");

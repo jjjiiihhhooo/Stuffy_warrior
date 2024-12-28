@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationEvent : MonoBehaviour
@@ -35,7 +33,7 @@ public class AnimationEvent : MonoBehaviour
         Player p = Player.Instance;
         MeatTrigger m = FindObjectOfType<MeatTrigger>();
 
-        if(p.dir == Dir.Left)
+        if (p.dir == Dir.Left)
         {
             if (p.playerPos.x > m.pos.x)
             {
@@ -47,7 +45,7 @@ public class AnimationEvent : MonoBehaviour
                 GameManager.Instance.PlayerEnd();
             }
         }
-        else if(p.dir == Dir.Front)
+        else if (p.dir == Dir.Front)
         {
             if (p.playerPos.y < m.pos.y)
             {

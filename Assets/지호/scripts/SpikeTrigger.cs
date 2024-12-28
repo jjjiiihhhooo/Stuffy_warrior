@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class SpikeTrigger : Node
 {
     public bool isUp;
@@ -15,7 +11,7 @@ public class SpikeTrigger : Node
 
     public override void Action()
     {
-        if(pause)
+        if (pause)
         {
             pause = false;
             Destroy(stun);

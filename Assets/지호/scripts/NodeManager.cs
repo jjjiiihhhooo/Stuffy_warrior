@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -39,19 +38,19 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private GameObject iron;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject enemy_obj;
-    
+
     public Node PlayerNode { get => playerNode; set => playerNode = value; }
     public Nodes[] Nodess { get => nodes; set => nodes = value; }
-    
+
     public void Init()
     {
         Setting();
-       // MapSetting();
+        // MapSetting();
     }
 
     private void Setting()
     {
-        for(int i = 0; i < nodes.Length; i++)
+        for (int i = 0; i < nodes.Length; i++)
         {
             for (int j = 0; j < nodes[i].node.Length; j++)
             {
@@ -60,15 +59,15 @@ public class NodeManager : MonoBehaviour
                 nodes[i].node[j].transform.GetComponentInParent<NodeTypes>().type = nodes[i].node[j].type;
             }
         }
-        
+
     }
 
     private void MapSetting()
     {
 
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            for(int j = 0; j < 6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 NodeType n = transforms[i].t[j].GetComponent<NodeTypes>().type;
                 string s = transforms[i].t[j].GetComponent<NodeTypes>().name;
@@ -79,7 +78,7 @@ public class NodeManager : MonoBehaviour
                 {
                     obj = Instantiate(normal, transforms[i].t[j]);
                 }
-                else if(n == NodeType.Start)
+                else if (n == NodeType.Start)
                 {
                     obj = Instantiate(start, transforms[i].t[j]);
                     PlayerNode = obj.GetComponent<Node>();
@@ -90,7 +89,7 @@ public class NodeManager : MonoBehaviour
                 }
                 else if (n == NodeType.Wall)
                 {
-                    if(s == "Iron")
+                    if (s == "Iron")
                     {
                         obj = Instantiate(iron, transforms[i].t[j]);
                     }
@@ -98,17 +97,17 @@ public class NodeManager : MonoBehaviour
                     {
                         obj = Instantiate(wall, transforms[i].t[j]);
                     }
-                    
+
                 }
-                else if(n == NodeType.Trigger)
-                { 
-                    if(s == "Spike")
+                else if (n == NodeType.Trigger)
+                {
+                    if (s == "Spike")
                     {
                         obj = Instantiate(spike, transforms[i].t[j]);
                     }
-                    
+
                 }
-                else if(n == NodeType.Enemy)
+                else if (n == NodeType.Enemy)
                 {
                     obj = Instantiate(enemy, transforms[i].t[j]);
                     temp = Instantiate(enemy_obj, transforms[i].t[j]);
@@ -124,7 +123,7 @@ public class NodeManager : MonoBehaviour
 
                 obj.transform.position = obj.transform.parent.position;
 
-                if(temp != null)
+                if (temp != null)
                     temp.transform.position = temp.transform.parent.position;
 
                 Node node = obj.GetComponent<Node>();
@@ -244,16 +243,16 @@ public class NodeManager : MonoBehaviour
         Dir dir = Player.Instance.GetPlayerDir();
         bool b = false;
 
-        if(dir == Dir.Left)
+        if (dir == Dir.Left)
         {
-            for(y = (int)Player.Instance.playerPos.y;  y > -1; y--)
+            for (y = (int)Player.Instance.playerPos.y; y > -1; y--)
             {
-                if(nodes[x].node[y].type == NodeType.Item)
+                if (nodes[x].node[y].type == NodeType.Item)
                 {
                     Player.Instance.isDestroyMeat = true;
                 }
-                
-                if(nodes[x].node[y].type == NodeType.Wall)
+
+                if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     y += 1;
                     b = true;
@@ -264,7 +263,7 @@ public class NodeManager : MonoBehaviour
                     b = true;
                     break;
                 }
-                else if(nodes[x].node[y].type == NodeType.Trigger)
+                else if (nodes[x].node[y].type == NodeType.Trigger)
                 {
                     b = true;
                     break;
@@ -289,10 +288,10 @@ public class NodeManager : MonoBehaviour
                     break;
                 }
             }
-            if(b == false)
+            if (b == false)
                 y = 0;
         }
-        else if(dir == Dir.Right)
+        else if (dir == Dir.Right)
         {
             for (y = (int)Player.Instance.playerPos.y; y < max_y; y++)
             {
@@ -336,10 +335,10 @@ public class NodeManager : MonoBehaviour
                     break;
                 }
             }
-            if(b == false)
+            if (b == false)
                 y = max_y - 1;
         }
-        else if(dir == Dir.Front)
+        else if (dir == Dir.Front)
         {
             for (x = (int)Player.Instance.playerPos.x; x > -1; x--)
             {
@@ -383,7 +382,7 @@ public class NodeManager : MonoBehaviour
                     break;
                 }
             }
-            if(b == false)
+            if (b == false)
                 x = 0;
 
         }
@@ -431,11 +430,11 @@ public class NodeManager : MonoBehaviour
                     break;
                 }
             }
-            if(b == false)
+            if (b == false)
                 x = max_x - 1;
         }
-        
-        return new Vector2(x,y);
+
+        return new Vector2(x, y);
     }
 
     public bool CurNodeCheck()
@@ -466,9 +465,9 @@ public class NodeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        for(int i = 0; i < nodes.Length; i++)
+        for (int i = 0; i < nodes.Length; i++)
         {
-            for(int j = 0; j < nodes[i].node.Length; j++)
+            for (int j = 0; j < nodes[i].node.Length; j++)
             {
                 yield return new WaitForEndOfFrame();
                 nodes[i].node[j].Action();

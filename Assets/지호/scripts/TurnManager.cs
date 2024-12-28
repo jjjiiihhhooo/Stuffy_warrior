@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -12,7 +10,7 @@ public class TurnManager : MonoBehaviour
 
     public void Init()
     {
-        
+
     }
 
     public void AddCount()

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeatTrigger : MonoBehaviour
@@ -16,20 +15,20 @@ public class MeatTrigger : MonoBehaviour
 
         int x = (int)pos.x;
         int y = (int)pos.y;
-        
-        for(int i = 0; i < 2; i++)
+
+        for (int i = 0; i < 2; i++)
         {
             x--;
             y--;
 
-            if (x >= 0) 
-            { 
-                GameManager.Instance.NodeManager.Nodess[x].node[(int)pos.y].meatArea = true; 
-                Debug.Log("x = " + x + " y = " + (int)pos.y); 
-            }
-            if(y >= 0)
+            if (x >= 0)
             {
-                GameManager.Instance.NodeManager.Nodess[(int)pos.x].node[y].meatArea = true; 
+                GameManager.Instance.NodeManager.Nodess[x].node[(int)pos.y].meatArea = true;
+                Debug.Log("x = " + x + " y = " + (int)pos.y);
+            }
+            if (y >= 0)
+            {
+                GameManager.Instance.NodeManager.Nodess[(int)pos.x].node[y].meatArea = true;
                 Debug.Log("x = " + (int)pos.x + " y = " + y);
             }
         }
@@ -42,13 +41,13 @@ public class MeatTrigger : MonoBehaviour
             x++;
             y++;
 
-            if (x < GameManager.Instance.NodeManager.Nodess.Length) 
-            { 
+            if (x < GameManager.Instance.NodeManager.Nodess.Length)
+            {
                 GameManager.Instance.NodeManager.Nodess[x].node[(int)pos.y].meatArea = true;
                 Debug.Log("x = " + x + " y = " + (int)pos.y);
             }
-            if (y < GameManager.Instance.NodeManager.Nodess[0].node.Length) 
-            { 
+            if (y < GameManager.Instance.NodeManager.Nodess[0].node.Length)
+            {
                 GameManager.Instance.NodeManager.Nodess[(int)pos.x].node[y].meatArea = true;
                 Debug.Log("x = " + (int)pos.x + " y = " + y);
             }

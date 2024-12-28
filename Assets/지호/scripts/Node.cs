@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 public enum NodeType
@@ -27,7 +25,7 @@ public class Node : MonoBehaviour
     public bool pause;
 
     private void Awake()
-    {        
+    {
         Init();
     }
 
@@ -46,11 +44,11 @@ public class Node : MonoBehaviour
 
     public virtual void Action()
     {
-        if(type == NodeType.Enemy)
+        if (type == NodeType.Enemy)
         {
             transform.parent.GetComponentInChildren<EnemyTrigger>().Action(this);
         }
-        else if(type == NodeType.Item)
+        else if (type == NodeType.Item)
         {
             transform.GetComponentInChildren<MeatTrigger>().Setting();
         }
@@ -62,7 +60,7 @@ public class Node : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
-        
+
     }
 
 }

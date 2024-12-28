@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
@@ -18,11 +17,11 @@ public class EnemyTrigger : MonoBehaviour
     public void Action(Node n)
     {
         Debug.Log("Action");
-        if(pause) 
+        if (pause)
         {
             pause = false;
             Destroy(n.stun);
-            return; 
+            return;
         }
         if (!isMove) return;
         isMove = false;
@@ -44,7 +43,7 @@ public class EnemyTrigger : MonoBehaviour
         transform.eulerAngles = dir;
 
         anim.Play("Ready");
-        
+
 
         //dot.DORestartById("move");
 

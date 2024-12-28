@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputSystem : MonoBehaviour
 {
@@ -20,7 +18,7 @@ public class InputSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if(GameManager.Instance.Skill.skill[0])
+            if (GameManager.Instance.Skill.skill[0])
                 GameManager.Instance.Skill.SelectSkill(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))

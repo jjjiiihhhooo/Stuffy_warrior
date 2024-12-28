@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FakeWall : MonoBehaviour
@@ -8,8 +6,8 @@ public class FakeWall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if(other.CompareTag("Player") && !isCheck)
+
+        if (other.CompareTag("Player") && !isCheck)
         {
             isCheck = true;
             Call();

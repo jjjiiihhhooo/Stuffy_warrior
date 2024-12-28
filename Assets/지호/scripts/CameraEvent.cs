@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraEvent : MonoBehaviour
@@ -21,9 +19,9 @@ public class CameraEvent : MonoBehaviour
 
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, checkDistance, layer))
         {
-            if(current != hit.transform.gameObject)
+            if (current != hit.transform.gameObject)
             {
-                if(current != null)
+                if (current != null)
                     current.GetComponent<MeshRenderer>().enabled = true;
                 current = hit.transform.gameObject;
                 current.GetComponent<MeshRenderer>().enabled = false;

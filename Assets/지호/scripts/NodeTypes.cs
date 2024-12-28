@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -42,21 +40,21 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!GameManager.Instance.Turn.turnReady) return;
         if (!GameManager.Instance.Skill.all) return;
 
-        if(GameManager.Instance.Skill.type == NodeType.Enemy)
+        if (GameManager.Instance.Skill.type == NodeType.Enemy)
         {
-            if(name == "Enemy")
+            if (name == "Enemy")
             {
                 this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             }
         }
-        else if(GameManager.Instance.Skill.type == NodeType.Normal)
+        else if (GameManager.Instance.Skill.type == NodeType.Normal)
         {
-            if(name != "Iron" && name != "Spike" && name != "f")
+            if (name != "Iron" && name != "Spike" && name != "f" && type == NodeType.Normal)
             {
                 this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             }
         }
-        else if(GameManager.Instance.Skill.type == NodeType.Trigger)
+        else if (GameManager.Instance.Skill.type == NodeType.Trigger)
         {
             if (name == "Iron" || name == "Spike")
             {
@@ -69,6 +67,6 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (!GameManager.Instance.Skill.all) return;
         this.transform.localScale = new Vector3(1f, 1f, 1f);
-        
+
     }
 }

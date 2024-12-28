@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -22,7 +20,7 @@ public class SkillManager : MonoBehaviour
 
     public void Init()
     {
-        for(int i = 0; i < skill.Length; i++)
+        for (int i = 0; i < skill.Length; i++)
         {
             if (skill[i]) all = true;
         }
