@@ -13,7 +13,10 @@ public class EnemyTrigger : MonoBehaviour
     public bool isMove;
     public bool pause;
     public Animator anim;
+    Node t;
 
+    int x;
+    int y;
     public void Action(Node n)
     {
         Debug.Log("Action");
@@ -25,22 +28,21 @@ public class EnemyTrigger : MonoBehaviour
         }
         if (!isMove) return;
         isMove = false;
-        int x = (int)curPos.x + paths[count].x;
-        int y = (int)curPos.y + paths[count].y;
+        x = (int)curPos.x + paths[count].x;
+        y = (int)curPos.y + paths[count].y;
 
-        Node t = GameManager.Instance.NodeManager.Nodess[x].node[y];
+        t = GameManager.Instance.NodeManager.Nodess[x].node[y];
 
         n.type = NodeType.Normal;
         n.GetComponentInParent<NodeTypes>().type = NodeType.Normal;
         //t.type = NodeType.Enemy;
 
+
+        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0f, transform.eulerAngles.z);
+        transform.forward = t.transform.position - transform.position;
         transform.parent = t.transform.parent;
 
-        transform.LookAt(t.transform);
-
-        Vector3 dir = transform.eulerAngles;
-        dir.y = 0;
-        transform.eulerAngles = dir;
+        
 
         anim.Play("Ready");
 
@@ -56,6 +58,7 @@ public class EnemyTrigger : MonoBehaviour
 
     public void SetNodeType()
     {
+        
         transform.parent.GetComponentInChildren<Node>().type = NodeType.Enemy;
         transform.parent.GetComponent<NodeTypes>().type = NodeType.Enemy;
         isMove = true;

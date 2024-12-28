@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TurnManager turn;
     [SerializeField] private SkillManager skill;
 
+    public GameObject spaceObj;
     public UIManager UI { get => ui; }
     public CameraManager Cam { get => cam; }
     public InputSystem Input { get => input; }
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         turn.turnReady = false;
         Player.Instance.arrow.SetActive(false);
+        spaceObj.SetActive(false);
         cam.SetPrioiry(1);
         StopCoroutine(MoveDelay());
         StartCoroutine(MoveDelay());
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         cam.SetPrioiry(0);
 
-        nodeManager.NodeAction();
+        nodeManager.NodeAction();   
     }
 
     public void TurnNodeReady()
@@ -108,6 +110,7 @@ public class GameManager : MonoBehaviour
         turn.AddCount();
         ui.TurnReady();
         skill.CheckUse();
+        spaceObj.SetActive(true);
         Player.Instance.arrow.SetActive(true);
     }
 
@@ -131,6 +134,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameOver");
         ui.OverUI();
+    }
+    
+    public void Exit()
+    {
+        Application.Quit();
     }
 
 }

@@ -13,6 +13,11 @@ public class AnimationEvent : MonoBehaviour
         Player.Instance.Move();
     }
 
+    public void ClearExit()
+    {
+        GameManager.Instance.PlayerEnd();
+    }
+
     public void CollisionExit()
     {
         if (Player.Instance.isfake)

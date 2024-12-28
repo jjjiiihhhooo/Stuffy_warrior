@@ -130,9 +130,14 @@ public class Player : MonoBehaviour
             anim.Play("Meat");
             isMeat = false;
         }
+        else if (GameManager.Instance.NodeManager.PlayerNode.type == NodeType.End)
+        {
+            anim.Play("Clear");
+        }
         else
         {
             anim.Play("Collision");
+
         }
 
         //GameManager.Instance.PlayerEnd();
