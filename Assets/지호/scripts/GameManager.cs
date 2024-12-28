@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public TurnManager Turn { get => turn; }
     public SkillManager Skill { get => skill; }
 
+    public GameObject outline;
+    public GameObject outPrefab;
+    public Material mat;
 
     private void Awake()
     {
