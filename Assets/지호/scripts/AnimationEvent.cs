@@ -17,7 +17,17 @@ public class AnimationEvent : MonoBehaviour
 
     public void CollisionExit()
     {
-        GameManager.Instance.PlayerEnd();
+        if (Player.Instance.isfake)
+        {
+            Player.Instance.isfake = false;
+            Player.Instance.fakeWall.GetComponent<wallTrigger>().Change();
+
+            GameManager.Instance.TurnEnd();
+        }
+        else
+        {
+            GameManager.Instance.PlayerEnd();
+        }
     }
 
     public void MeatExit()

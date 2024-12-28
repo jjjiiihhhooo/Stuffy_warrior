@@ -41,6 +41,8 @@ public class SkillManager : MonoBehaviour
         else if (i == 1) type = NodeType.Trigger;
         else if (i == 2) type = NodeType.Enemy;
 
+        Debug.Log("Select " + i);
+
         GameManager.Instance.UI.SelectUI(i);
     }
 
