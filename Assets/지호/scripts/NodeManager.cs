@@ -419,9 +419,9 @@ public class NodeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < nodes.Length; i++)
         {
-            for(int j = 0; j < 6; j++)
+            for(int j = 0; j < nodes[i].node.Length; j++)
             {
                 yield return new WaitForEndOfFrame();
                 nodes[i].node[j].Action();

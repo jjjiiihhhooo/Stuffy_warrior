@@ -12,6 +12,7 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!GameManager.Instance.Turn.turnReady) return;
+        if (!GameManager.Instance.Skill.all) return;
 
         if (GameManager.Instance.Skill.type == type)
         {
@@ -29,6 +30,7 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!GameManager.Instance.Turn.turnReady) return;
+        if (!GameManager.Instance.Skill.all) return;
 
         if (GameManager.Instance.Skill.type == type)
         {
@@ -45,6 +47,7 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!GameManager.Instance.Skill.all) return;
         this.transform.localScale = new Vector3(1f, 1f, 1f);
         
     }

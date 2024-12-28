@@ -20,15 +20,18 @@ public class InputSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameManager.Instance.Skill.SelectSkill(0);
+            if(GameManager.Instance.Skill.skill[0])
+                GameManager.Instance.Skill.SelectSkill(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            GameManager.Instance.Skill.SelectSkill(1);
+            if (GameManager.Instance.Skill.skill[1])
+                GameManager.Instance.Skill.SelectSkill(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            GameManager.Instance.Skill.SelectSkill(2);
+            if (GameManager.Instance.Skill.skill[2])
+                GameManager.Instance.Skill.SelectSkill(2);
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
