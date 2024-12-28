@@ -1,16 +1,44 @@
+using Cinemachine;
 using UnityEngine;
 
 public class CamShake : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    private CinemachineVirtualCamera virtualCamera;
 
+    private float shakeTimer;
+
+    private void Awake()
+    {
+        shakeTimer = 0;
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShakeCamera(float intensity, float time)
     {
+        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
+                    virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
+        shakeTimer = time;
+    }
+
+    private void Update()
+    {
+        Shake();
+    }
+
+    private void Shake()
+    {
+        if (shakeTimer > 0)
+        {
+            shakeTimer -= Time.deltaTime;
+            if (shakeTimer <= 0f)
+            {
+                CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
+                    virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
+            }
+        }
     }
 }

@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
     public GameObject fakeWall;
     public GameObject arrow;
     public GameObject mm;
+    public GameObject collisionSound;
+    public GameObject rotateSound;
+    public GameObject ClearSound;
+    public GameObject ReadySound;
+    public GameObject clearUISound;
     public Vector2 playerPos;
     public Vector3 target;
 
@@ -60,7 +65,7 @@ public class Player : MonoBehaviour
     {
         Vector3 m = new Vector3(0, 1, 0);
         float t = 90;
-
+        rotateSound.SetActive(true);
         while (t > 0)
         {
             yield return new WaitForSeconds(0.01f);
@@ -114,7 +119,7 @@ public class Player : MonoBehaviour
 
         while (Vector3.Distance(transform.position, target) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, 0.8f);
+            transform.position = Vector3.MoveTowards(transform.position, target, 1.5f);
             yield return new WaitForFixedUpdate();
         }
 

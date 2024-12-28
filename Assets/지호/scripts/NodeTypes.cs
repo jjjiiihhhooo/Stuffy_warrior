@@ -50,20 +50,21 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 }
                 GameManager.Instance.mat.color = Color.green;
                 GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
+                GameManager.Instance.outline.SetActive(true);
             }
         }
         else if (GameManager.Instance.Skill.type == NodeType.Normal)
         {
             if (name != "Iron" && name != "Spike" && name != "f" && type == NodeType.Normal)
             {
-                if(GameManager.Instance.outline == null)
+                if (GameManager.Instance.outline == null)
                 {
                     GameManager.Instance.outline = Instantiate(GameManager.Instance.outPrefab);
                 }
                 GameManager.Instance.mat.color = Color.red;
                 GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
-                
-               //this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                GameManager.Instance.outline.SetActive(true);
+                //this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             }
         }
         else if (GameManager.Instance.Skill.type == NodeType.Trigger)
@@ -76,6 +77,7 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 }
                 GameManager.Instance.mat.color = Color.blue;
                 GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
+                GameManager.Instance.outline.SetActive(true);
             }
         }
     }
@@ -84,6 +86,9 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (!GameManager.Instance.Skill.all) return;
         this.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        if (GameManager.Instance.outline != null)
+            GameManager.Instance.outline.SetActive(false);
 
     }
 }

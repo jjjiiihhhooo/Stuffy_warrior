@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
         nodeManager.Init();
         turn.Init();
         skill.Init();
-        StartCoroutine(TurnDelay());
+
+        Invoke("TurnReady", 1f);
+        //StartCoroutine(TurnDelay());
     }
 
     private IEnumerator TurnDelay()
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         cam.SetPrioiry(0);
 
-        nodeManager.NodeAction();   
+        nodeManager.NodeAction();
     }
 
     public void TurnNodeReady()
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
         turn.AddCount();
         ui.TurnReady();
         skill.CheckUse();
+        Player.Instance.ReadySound.SetActive(true);
         spaceObj.SetActive(true);
         Player.Instance.arrow.SetActive(true);
     }
@@ -121,6 +124,7 @@ public class GameManager : MonoBehaviour
     public void StageClear()
     {
         ui.ClearUI();
+        Player.Instance.clearUISound.SetActive(true);
     }
 
     public void ReStart()
@@ -138,7 +142,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver");
         ui.OverUI();
     }
-    
+
     public void Exit()
     {
         Application.Quit();

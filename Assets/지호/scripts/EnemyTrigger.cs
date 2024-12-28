@@ -13,10 +13,7 @@ public class EnemyTrigger : MonoBehaviour
     public bool isMove;
     public bool pause;
     public Animator anim;
-    Node t;
 
-    int x;
-    int y;
     public void Action(Node n)
     {
         Debug.Log("Action");
@@ -28,21 +25,25 @@ public class EnemyTrigger : MonoBehaviour
         }
         if (!isMove) return;
         isMove = false;
-        x = (int)curPos.x + paths[count].x;
-        y = (int)curPos.y + paths[count].y;
+        int x = (int)curPos.x + paths[count].x;
+        int y = (int)curPos.y + paths[count].y;
 
-        t = GameManager.Instance.NodeManager.Nodess[x].node[y];
+        Node t = GameManager.Instance.NodeManager.Nodess[x].node[y];
+        t.GetComponentInParent<NodeTypes>().type = NodeType.Enemy;
+        t.GetComponentInParent<NodeTypes>().name = "Enemy";
 
         n.type = NodeType.Normal;
         n.GetComponentInParent<NodeTypes>().type = NodeType.Normal;
-        //t.type = NodeType.Enemy;
+        n.GetComponentInParent<NodeTypes>().name = "";
+
+        t.type = NodeType.Enemy;
 
 
         //transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0f, transform.eulerAngles.z);
-        transform.forward = t.transform.position - transform.position;
+
         transform.parent = t.transform.parent;
 
-        
+
 
         anim.Play("Ready");
 
@@ -58,7 +59,7 @@ public class EnemyTrigger : MonoBehaviour
 
     public void SetNodeType()
     {
-        
+
         transform.parent.GetComponentInChildren<Node>().type = NodeType.Enemy;
         transform.parent.GetComponent<NodeTypes>().type = NodeType.Enemy;
         isMove = true;

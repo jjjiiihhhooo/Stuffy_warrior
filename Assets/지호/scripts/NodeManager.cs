@@ -42,6 +42,8 @@ public class NodeManager : MonoBehaviour
     public Node PlayerNode { get => playerNode; set => playerNode = value; }
     public Nodes[] Nodess { get => nodes; set => nodes = value; }
 
+    public Player player;
+
     public void Init()
     {
         Setting();
@@ -54,6 +56,11 @@ public class NodeManager : MonoBehaviour
         {
             for (int j = 0; j < nodes[i].node.Length; j++)
             {
+                if (transforms[i].t[j].GetComponentInChildren<Node>().type == NodeType.Start)
+                {
+                    player.playerPos = new Vector2(i, j);
+                    playerNode = transforms[i].t[j].GetComponentInChildren<Node>();
+                }
                 nodes[i].node[j] = transforms[i].t[j].GetComponentInChildren<Node>();
                 nodes[i].node[j].NodePos = new Vector2(i, j);
                 nodes[i].node[j].transform.GetComponentInParent<NodeTypes>().type = nodes[i].node[j].type;
@@ -141,8 +148,8 @@ public class NodeManager : MonoBehaviour
     public void ChangeDir()
     {
         Dir t = Player.Instance.GetPlayerDir();
-        int x = (int)Player.Instance.playerPos.x;
-        int y = (int)Player.Instance.playerPos.y;
+        int x = (int)player.playerPos.x;
+        int y = (int)player.playerPos.y;
         int max_x = nodes.Length;
         int max_y = nodes[0].node.Length;
         switch (t)
@@ -155,8 +162,8 @@ public class NodeManager : MonoBehaviour
                     {
                         if (nodes[x + 1].node[y].isfake)
                         {
-                            Player.Instance.isfake = true;
-                            Player.Instance.fakeWall = nodes[x + 1].node[y].gameObject;
+                            player.isfake = true;
+                            player.fakeWall = nodes[x + 1].node[y].gameObject;
                             break;
                         }
                         ChangeDir();
@@ -165,15 +172,15 @@ public class NodeManager : MonoBehaviour
                 else ChangeDir();
                 break;
             case Dir.Right:
-                Player.Instance.SetPlayerDir(Dir.Front);
+                player.SetPlayerDir(Dir.Front);
                 if (x - 1 > -1)
                 {
                     if (nodes[x - 1].node[y].type == NodeType.Wall)
                     {
                         if (nodes[x - 1].node[y].isfake)
                         {
-                            Player.Instance.isfake = true;
-                            Player.Instance.fakeWall = nodes[x - 1].node[y].gameObject;
+                            player.isfake = true;
+                            player.fakeWall = nodes[x - 1].node[y].gameObject;
                             break;
                         }
                         ChangeDir();
@@ -182,15 +189,15 @@ public class NodeManager : MonoBehaviour
                 else ChangeDir();
                 break;
             case Dir.Front:
-                Player.Instance.SetPlayerDir(Dir.Left);
+                player.SetPlayerDir(Dir.Left);
                 if (y - 1 > -1)
                 {
                     if (nodes[x].node[y - 1].type == NodeType.Wall)
                     {
                         if (nodes[x].node[y - 1].isfake)
                         {
-                            Player.Instance.isfake = true;
-                            Player.Instance.fakeWall = nodes[x].node[y - 1].gameObject;
+                            player.isfake = true;
+                            player.fakeWall = nodes[x].node[y - 1].gameObject;
                             break;
                         }
                         ChangeDir();
@@ -199,7 +206,7 @@ public class NodeManager : MonoBehaviour
                 else ChangeDir();
                 break;
             case Dir.Back:
-                Player.Instance.SetPlayerDir(Dir.Right);
+                player.SetPlayerDir(Dir.Right);
                 if (y + 1 < max_y)
                 {
                     if (nodes[x].node[y + 1].type == NodeType.Wall)
@@ -230,26 +237,26 @@ public class NodeManager : MonoBehaviour
         Vector3 target = new Vector3(nodes[x].node[y].transform.position.x, 0, nodes[x].node[y].transform.position.z);
 
         playerNode = targetNode;
-        Player.Instance.playerPos = pos;
+        player.playerPos = pos;
         return target;
     }
 
     public Vector2 SearchPos()
     {
-        int x = (int)Player.Instance.playerPos.x;
-        int y = (int)Player.Instance.playerPos.y;
+        int x = (int)player.playerPos.x;
+        int y = (int)player.playerPos.y;
         int max_y = nodes[0].node.Length;
         int max_x = nodes.Length;
-        Dir dir = Player.Instance.GetPlayerDir();
+        Dir dir = player.GetPlayerDir();
         bool b = false;
 
         if (dir == Dir.Left)
         {
-            for (y = (int)Player.Instance.playerPos.y; y > -1; y--)
+            for (y = (int)player.playerPos.y; y > -1; y--)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
-                    Player.Instance.isDestroyMeat = true;
+                    player.isDestroyMeat = true;
                 }
 
                 if (nodes[x].node[y].type == NodeType.Wall)
@@ -282,8 +289,8 @@ public class NodeManager : MonoBehaviour
                         continue;
 
                     b = true;
-                    Player.Instance.isMeat = true;
-                    Player.Instance.mm.SetActive(true);
+                    player.isMeat = true;
+                    player.mm.SetActive(true);
                     m.DeSetting();
                     break;
                 }
@@ -293,11 +300,11 @@ public class NodeManager : MonoBehaviour
         }
         else if (dir == Dir.Right)
         {
-            for (y = (int)Player.Instance.playerPos.y; y < max_y; y++)
+            for (y = (int)player.playerPos.y; y < max_y; y++)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
-                    Player.Instance.isDestroyMeat = true;
+                    player.isDestroyMeat = true;
                 }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
@@ -329,8 +336,8 @@ public class NodeManager : MonoBehaviour
                         continue;
 
                     b = true;
-                    Player.Instance.isMeat = true;
-                    Player.Instance.mm.SetActive(true);
+                    player.isMeat = true;
+                    player.mm.SetActive(true);
                     m.DeSetting();
                     break;
                 }
@@ -340,11 +347,11 @@ public class NodeManager : MonoBehaviour
         }
         else if (dir == Dir.Front)
         {
-            for (x = (int)Player.Instance.playerPos.x; x > -1; x--)
+            for (x = (int)player.playerPos.x; x > -1; x--)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
-                    Player.Instance.isDestroyMeat = true;
+                    player.isDestroyMeat = true;
                 }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
@@ -376,8 +383,8 @@ public class NodeManager : MonoBehaviour
                         continue;
 
                     b = true;
-                    Player.Instance.isMeat = true;
-                    Player.Instance.mm.SetActive(true);
+                    player.isMeat = true;
+                    player.mm.SetActive(true);
                     m.DeSetting();
                     break;
                 }
@@ -388,11 +395,11 @@ public class NodeManager : MonoBehaviour
         }
         else if (dir == Dir.Back)
         {
-            for (x = (int)Player.Instance.playerPos.x; x < max_x; x++)
+            for (x = (int)player.playerPos.x; x < max_x; x++)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
-                    Player.Instance.isDestroyMeat = true;
+                    player.isDestroyMeat = true;
                 }
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
@@ -424,8 +431,8 @@ public class NodeManager : MonoBehaviour
                         continue;
 
                     b = true;
-                    Player.Instance.isMeat = true;
-                    Player.Instance.mm.SetActive(true);
+                    player.isMeat = true;
+                    player.mm.SetActive(true);
                     m.DeSetting();
                     break;
                 }

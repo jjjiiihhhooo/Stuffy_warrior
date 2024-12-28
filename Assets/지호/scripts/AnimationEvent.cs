@@ -33,6 +33,21 @@ public class AnimationEvent : MonoBehaviour
         }
     }
 
+    public void ClearSound()
+    {
+        Player.Instance.ClearSound.SetActive(true);
+    }
+
+    public void CollisionSound()
+    {
+        Player.Instance.collisionSound.SetActive(true);
+    }
+
+    public void CamShake()
+    {
+        GameManager.Instance.Cam.Shake(0.5f);
+    }
+
     public void MeatExit()
     {
         Player p = Player.Instance;

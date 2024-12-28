@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 using TMPro;
+using UnityEngine;
 public class Intro : MonoBehaviour
 {
     public DOTweenAnimation dot;
     public TextMeshProUGUI text;
     public GameObject space;
     public GameObject logue;
+    public GameObject king;
     private bool isDot;
 
     public string[] script;
@@ -18,7 +18,7 @@ public class Intro : MonoBehaviour
     public bool title;
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !isDot)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDot)
         {
             isDot = true;
             dot.transform.GetChild(0).gameObject.SetActive(false);
@@ -27,7 +27,7 @@ public class Intro : MonoBehaviour
             ChatStart();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && next)
+        if (Input.GetKeyDown(KeyCode.Space) && next)
         {
             space.SetActive(false);
             next = false;
@@ -35,11 +35,11 @@ public class Intro : MonoBehaviour
             ChatStart();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && title)
+        if (Input.GetKeyDown(KeyCode.Space) && title)
         {
             LoadingSceneManager.LoadScene("Title");
         }
-        
+
     }
 
     public void ChatStart()
@@ -57,9 +57,10 @@ public class Intro : MonoBehaviour
 
     private IEnumerator Cor()
     {
-
+        if (index % 2 != 0) king.SetActive(true);
+        else king.SetActive(false);
         string s = "";
-        for(int i = 0; i < script[index].Length; i++)
+        for (int i = 0; i < script[index].Length; i++)
         {
             s += script[index][i];
             yield return new WaitForSeconds(0.02f);
@@ -68,6 +69,6 @@ public class Intro : MonoBehaviour
         }
         next = true;
         space.SetActive(true);
-        
+
     }
 }
