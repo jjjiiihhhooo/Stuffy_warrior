@@ -14,7 +14,12 @@ public class Node : MonoBehaviour
     public Animator anim;
     public UnityEvent _event;
 
+    public GameObject stun;
+    public GameObject meat;
+
     public Vector2 NodePos;
+
+    public bool meatArea;
 
     public int turnCount;
 

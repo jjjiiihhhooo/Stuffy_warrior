@@ -12,10 +12,18 @@ public class EnemyTrigger : MonoBehaviour
 
     public int count = 0;
     public bool isMove;
+    public bool pause;
+    public Animator anim;
 
     public void Action(Node n)
     {
         Debug.Log("Action");
+        if(pause) 
+        {
+            pause = false;
+            Destroy(n.stun);
+            return; 
+        }
         if (!isMove) return;
         isMove = false;
         int x = (int)curPos.x + paths[count].x;
@@ -24,12 +32,19 @@ public class EnemyTrigger : MonoBehaviour
         Node t = GameManager.Instance.NodeManager.Nodess[x].node[y];
 
         n.type = NodeType.Normal;
+        n.GetComponentInParent<NodeTypes>().type = NodeType.Normal;
         //t.type = NodeType.Enemy;
 
         transform.parent = t.transform.parent;
 
-        StopCoroutine(EnemyMoveCor());
-        StartCoroutine(EnemyMoveCor());
+        transform.LookAt(t.transform);
+
+        Vector3 dir = transform.eulerAngles;
+        dir.y = 0;
+        transform.eulerAngles = dir;
+
+        anim.Play("Ready");
+        
 
         //dot.DORestartById("move");
 
@@ -43,7 +58,15 @@ public class EnemyTrigger : MonoBehaviour
     public void SetNodeType()
     {
         transform.parent.GetComponentInChildren<Node>().type = NodeType.Enemy;
+        transform.parent.GetComponent<NodeTypes>().type = NodeType.Enemy;
         isMove = true;
+    }
+
+    public void EnemyMove()
+    {
+        anim.Play("Move");
+        StopCoroutine(EnemyMoveCor());
+        StartCoroutine(EnemyMoveCor());
     }
 
     private IEnumerator EnemyMoveCor()
@@ -54,9 +77,12 @@ public class EnemyTrigger : MonoBehaviour
             //transform.position = Vector3.MoveTowards(transform.position, target, 0.8f);
             yield return new WaitForFixedUpdate();
         }
+        anim.Play("Stop");
 
         transform.localPosition = Vector3.zero;
+
         SetNodeType();
+
         Debug.Log("Cor");
     }
 }

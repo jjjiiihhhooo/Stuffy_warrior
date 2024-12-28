@@ -25,16 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-            Init();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        Instance = this;
+        Init();
     }
 
     private void Init()
@@ -44,6 +36,7 @@ public class GameManager : MonoBehaviour
         input.Init();
         nodeManager.Init();
         turn.Init();
+        skill.Init();
         StartCoroutine(TurnDelay());
     }
 
@@ -69,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void TurnStart()
     {
         turn.turnReady = false;
+        Player.Instance.arrow.SetActive(false);
         cam.SetPrioiry(1);
         StopCoroutine(MoveDelay());
         StartCoroutine(MoveDelay());
@@ -113,6 +107,8 @@ public class GameManager : MonoBehaviour
     {
         turn.AddCount();
         ui.TurnReady();
+        skill.CheckUse();
+        Player.Instance.arrow.SetActive(true);
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class InputSystem : MonoBehaviour
@@ -31,12 +32,16 @@ public class InputSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(GameManager.Instance.Turn.turnReady)
+            if (GameManager.Instance.Turn.turnReady)
                 GameManager.Instance.TurnStart();
         }
-        else if(Input.GetKeyDown(KeyCode.Y))
+        else if (Input.GetKeyDown(KeyCode.Y))
         {
             GameManager.Instance.UI.TurnReady();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

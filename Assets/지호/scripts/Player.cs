@@ -14,9 +14,15 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform actionCam;
     [SerializeField] private Transform moveCam;
 
+    public Animator anim;
+    public GameObject arrow;
+    public GameObject mm;
     public Vector2 playerPos;
+    public Vector3 target;
 
-    private Dir dir;
+    public Dir dir;
+
+    public bool isMeat;
 
     private void Awake()
     {
@@ -63,16 +69,44 @@ public class Player : MonoBehaviour
             t--;
         }
 
+        Player.Instance.mm.SetActive(false);
+        GameManager.Instance.TurnEnd();
+    }
+
+    public void ReRotate()
+    {
+        StopCoroutine(ReRotCor());
+        StartCoroutine(ReRotCor());
+    }
+
+    private IEnumerator ReRotCor()
+    {
+        Vector3 m = new Vector3(0, 1, 0);
+        float t = 0;
+
+        while (t < 90)
+        {
+            yield return new WaitForSeconds(0.01f);
+            transform.eulerAngles += m;
+            t++;
+        }
+
+        Player.Instance.mm.SetActive(false);
         GameManager.Instance.TurnEnd();
     }
 
 
     public void PlayerMove()
     {
-        Vector3 target = GameManager.Instance.NodeManager.TargetPos();
+        target = GameManager.Instance.NodeManager.TargetPos();
+
+        anim.Play("Ready");
+    }
+
+    public void Move()
+    {
         StopCoroutine(MoveCor(target));
         StartCoroutine(MoveCor(target));
-
     }
 
     private IEnumerator MoveCor(Vector3 t)
@@ -86,6 +120,22 @@ public class Player : MonoBehaviour
         }
 
         transform.position = target;
-        GameManager.Instance.PlayerEnd();
+
+        if (GameManager.Instance.NodeManager.PlayerNode.type == NodeType.Enemy || 
+            GameManager.Instance.NodeManager.PlayerNode.type == NodeType.Trigger)
+        {
+            anim.Play("Dead");
+        }
+        else if (isMeat)
+        {
+            anim.Play("Meat");
+            isMeat = false;
+        }
+        else
+        {
+            anim.Play("Collision");
+        }
+
+        //GameManager.Instance.PlayerEnd();
     }
 }

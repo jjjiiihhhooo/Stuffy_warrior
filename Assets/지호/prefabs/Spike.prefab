@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3855986309817887239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.42, z: 0}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 3.8, y: 3.8, z: 3.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -274,7 +274,11 @@ MonoBehaviour:
   _event:
     m_PersistentCalls:
       m_Calls: []
+  stun: {fileID: 0}
+  NodePos: {x: 0, y: 0}
   turnCount: 1
+  pause: 0
+  isUp: 0
 --- !u!1 &9146667417689251176
 GameObject:
   m_ObjectHideFlags: 0

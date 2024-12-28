@@ -18,6 +18,7 @@ public class SpikeTrigger : Node
         if(pause)
         {
             pause = false;
+            Destroy(stun);
             return;
         }
 

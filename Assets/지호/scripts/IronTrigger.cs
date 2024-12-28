@@ -20,6 +20,7 @@ public class IronTrigger : Node
         if (pause)
         {
             pause = false;
+            Destroy(stun);
             return;
         }
 

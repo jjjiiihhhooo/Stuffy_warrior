@@ -100,6 +100,12 @@ public class NodeManager : MonoBehaviour
                     temp.GetComponent<EnemyTrigger>().paths = transforms[i].t[j].GetComponent<NodeTypes>().paths;
                     temp.GetComponent<EnemyTrigger>().curPos = new Vector2(i, j);
                 }
+                //else if(n == NodeType.Item)
+                //{
+                //    obj = Instantiate(enemy, transforms[i].t[j]);
+                //    temp = Instantiate(enemy_obj, transforms[i].t[j]);
+                //}
+
 
                 obj.transform.position = obj.transform.parent.position;
 
@@ -217,6 +223,20 @@ public class NodeManager : MonoBehaviour
                     b = true;
                     break;
                 }
+                else if (nodes[x].node[y].meatArea)
+                {
+                    MeatTrigger m = FindObjectOfType<MeatTrigger>();
+
+                    Vector2 pos = m.pos;
+                    if (pos.x == playerNode.NodePos.x)
+                        continue;
+
+                    b = true;
+                    Player.Instance.isMeat = true;
+                    Player.Instance.mm.SetActive(true);
+                    m.DeSetting();
+                    break;
+                }
             }
             if(b == false)
                 y = 0;
@@ -239,6 +259,20 @@ public class NodeManager : MonoBehaviour
                 else if (nodes[x].node[y].type == NodeType.Enemy)
                 {
                     b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].meatArea)
+                {
+                    MeatTrigger m = FindObjectOfType<MeatTrigger>();
+
+                    Vector2 pos = m.pos;
+                    if (pos.x == playerNode.NodePos.x)
+                        continue;
+
+                    b = true;
+                    Player.Instance.isMeat = true;
+                    Player.Instance.mm.SetActive(true);
+                    m.DeSetting();
                     break;
                 }
             }
@@ -265,9 +299,24 @@ public class NodeManager : MonoBehaviour
                     b = true;
                     break;
                 }
+                else if (nodes[x].node[y].meatArea)
+                {
+                    MeatTrigger m = FindObjectOfType<MeatTrigger>();
+
+                    Vector2 pos = m.pos;
+                    if (pos.y == playerNode.NodePos.y)
+                        continue;
+
+                    b = true;
+                    Player.Instance.isMeat = true;
+                    Player.Instance.mm.SetActive(true);
+                    m.DeSetting();
+                    break;
+                }
             }
             if(b == false)
                 x = 0;
+
         }
         else if (dir == Dir.Back)
         {
@@ -287,6 +336,20 @@ public class NodeManager : MonoBehaviour
                 else if (nodes[x].node[y].type == NodeType.Enemy)
                 {
                     b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].meatArea)
+                {
+                    MeatTrigger m = FindObjectOfType<MeatTrigger>();
+
+                    Vector2 pos = m.pos;
+                    if (pos.y == playerNode.NodePos.y)
+                        continue;
+
+                    b = true;
+                    Player.Instance.isMeat = true;
+                    Player.Instance.mm.SetActive(true);
+                    m.DeSetting();
                     break;
                 }
             }
