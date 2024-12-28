@@ -12,6 +12,9 @@ public class SkillManager : MonoBehaviour
     public int meatCount;
 
     public bool use = true;
+    public bool[] skill;
+
+    public bool all;
 
     public GameObject stun;
     public GameObject smoke;
@@ -19,6 +22,10 @@ public class SkillManager : MonoBehaviour
 
     public void Init()
     {
+        for(int i = 0; i < skill.Length; i++)
+        {
+            if (skill[i]) all = true;
+        }
         SelectSkill(0);
     }
 
