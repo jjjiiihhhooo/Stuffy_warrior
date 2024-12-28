@@ -57,7 +57,7 @@ public class NodeManager : MonoBehaviour
             {
                 nodes[i].node[j] = transforms[i].t[j].GetComponentInChildren<Node>();
                 nodes[i].node[j].NodePos = new Vector2(i, j);
-
+                nodes[i].node[j].transform.GetComponentInParent<NodeTypes>().type = nodes[i].node[j].type;
             }
         }
         
@@ -144,15 +144,22 @@ public class NodeManager : MonoBehaviour
         Dir t = Player.Instance.GetPlayerDir();
         int x = (int)Player.Instance.playerPos.x;
         int y = (int)Player.Instance.playerPos.y;
-        int max = nodes.Length;
+        int max_x = nodes.Length;
+        int max_y = nodes[0].node.Length;
         switch (t)
         {
             case Dir.Left:
                 Player.Instance.SetPlayerDir(Dir.Back);
-                if (x + 1 < max)
+                if (x + 1 < max_x)
                 {
                     if (nodes[x + 1].node[y].type == NodeType.Wall)
                     {
+                        if (nodes[x + 1].node[y].isfake)
+                        {
+                            Player.Instance.isfake = true;
+                            Player.Instance.fakeWall = nodes[x + 1].node[y].gameObject;
+                            break;
+                        }
                         ChangeDir();
                     }
                 }
@@ -164,6 +171,12 @@ public class NodeManager : MonoBehaviour
                 {
                     if (nodes[x - 1].node[y].type == NodeType.Wall)
                     {
+                        if (nodes[x - 1].node[y].isfake)
+                        {
+                            Player.Instance.isfake = true;
+                            Player.Instance.fakeWall = nodes[x - 1].node[y].gameObject;
+                            break;
+                        }
                         ChangeDir();
                     }
                 }
@@ -175,6 +188,12 @@ public class NodeManager : MonoBehaviour
                 {
                     if (nodes[x].node[y - 1].type == NodeType.Wall)
                     {
+                        if (nodes[x].node[y - 1].isfake)
+                        {
+                            Player.Instance.isfake = true;
+                            Player.Instance.fakeWall = nodes[x].node[y - 1].gameObject;
+                            break;
+                        }
                         ChangeDir();
                     }
                 }
@@ -182,10 +201,16 @@ public class NodeManager : MonoBehaviour
                 break;
             case Dir.Back:
                 Player.Instance.SetPlayerDir(Dir.Right);
-                if (y + 1 < max)
+                if (y + 1 < max_y)
                 {
                     if (nodes[x].node[y + 1].type == NodeType.Wall)
                     {
+                        if (nodes[x].node[y + 1].isfake)
+                        {
+                            Player.Instance.isfake = true;
+                            Player.Instance.fakeWall = nodes[x].node[y + 1].gameObject;
+                            break;
+                        }
                         ChangeDir();
                     }
                 }
@@ -214,7 +239,8 @@ public class NodeManager : MonoBehaviour
     {
         int x = (int)Player.Instance.playerPos.x;
         int y = (int)Player.Instance.playerPos.y;
-        int max = nodes.Length;
+        int max_y = nodes[0].node.Length;
+        int max_x = nodes.Length;
         Dir dir = Player.Instance.GetPlayerDir();
         bool b = false;
 
@@ -226,9 +252,15 @@ public class NodeManager : MonoBehaviour
                 {
                     Player.Instance.isDestroyMeat = true;
                 }
+                
                 if(nodes[x].node[y].type == NodeType.Wall)
                 {
                     y += 1;
+                    b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].type == NodeType.End)
+                {
                     b = true;
                     break;
                 }
@@ -262,7 +294,7 @@ public class NodeManager : MonoBehaviour
         }
         else if(dir == Dir.Right)
         {
-            for (y = (int)Player.Instance.playerPos.y; y < max; y++)
+            for (y = (int)Player.Instance.playerPos.y; y < max_y; y++)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
@@ -271,6 +303,11 @@ public class NodeManager : MonoBehaviour
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     y -= 1;
+                    b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].type == NodeType.End)
+                {
                     b = true;
                     break;
                 }
@@ -300,7 +337,7 @@ public class NodeManager : MonoBehaviour
                 }
             }
             if(b == false)
-                y = max - 1;
+                y = max_y - 1;
         }
         else if(dir == Dir.Front)
         {
@@ -313,6 +350,11 @@ public class NodeManager : MonoBehaviour
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     x += 1;
+                    b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].type == NodeType.End)
+                {
                     b = true;
                     break;
                 }
@@ -347,7 +389,7 @@ public class NodeManager : MonoBehaviour
         }
         else if (dir == Dir.Back)
         {
-            for (x = (int)Player.Instance.playerPos.x; x < max; x++)
+            for (x = (int)Player.Instance.playerPos.x; x < max_x; x++)
             {
                 if (nodes[x].node[y].type == NodeType.Item)
                 {
@@ -356,6 +398,11 @@ public class NodeManager : MonoBehaviour
                 if (nodes[x].node[y].type == NodeType.Wall)
                 {
                     x -= 1;
+                    b = true;
+                    break;
+                }
+                else if (nodes[x].node[y].type == NodeType.End)
+                {
                     b = true;
                     break;
                 }
@@ -385,7 +432,7 @@ public class NodeManager : MonoBehaviour
                 }
             }
             if(b == false)
-                x = max - 1;
+                x = max_x - 1;
         }
         
         return new Vector2(x,y);

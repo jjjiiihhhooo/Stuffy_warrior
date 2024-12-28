@@ -14,9 +14,19 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!GameManager.Instance.Turn.turnReady) return;
         if (!GameManager.Instance.Skill.all) return;
 
-        if (GameManager.Instance.Skill.type == type)
+        if (GameManager.Instance.Skill.type == NodeType.Enemy)
         {
-            GameManager.Instance.Skill.UseSkill(transform.GetComponentInChildren<Node>());
+            if (name == "Enemy")
+            {
+                GameManager.Instance.Skill.UseSkill(transform.GetComponentInChildren<Node>());
+            }
+        }
+        else if (GameManager.Instance.Skill.type == NodeType.Normal)
+        {
+            if (name != "Iron" && name != "Spike" && name != "f")
+            {
+                GameManager.Instance.Skill.UseSkill(transform.GetComponentInChildren<Node>());
+            }
         }
         else if (GameManager.Instance.Skill.type == NodeType.Trigger)
         {
@@ -32,9 +42,19 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!GameManager.Instance.Turn.turnReady) return;
         if (!GameManager.Instance.Skill.all) return;
 
-        if (GameManager.Instance.Skill.type == type)
+        if(GameManager.Instance.Skill.type == NodeType.Enemy)
         {
-            this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            if(name == "Enemy")
+            {
+                this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            }
+        }
+        else if(GameManager.Instance.Skill.type == NodeType.Normal)
+        {
+            if(name != "Iron" && name != "Spike" && name != "f")
+            {
+                this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            }
         }
         else if(GameManager.Instance.Skill.type == NodeType.Trigger)
         {
