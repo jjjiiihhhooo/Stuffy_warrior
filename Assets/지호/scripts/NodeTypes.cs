@@ -44,21 +44,38 @@ public class NodeTypes : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             if (name == "Enemy")
             {
-                this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                if (GameManager.Instance.outline == null)
+                {
+                    GameManager.Instance.outline = Instantiate(GameManager.Instance.outPrefab);
+                }
+                GameManager.Instance.mat.color = Color.green;
+                GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
             }
         }
         else if (GameManager.Instance.Skill.type == NodeType.Normal)
         {
             if (name != "Iron" && name != "Spike" && name != "f" && type == NodeType.Normal)
             {
-                this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                if(GameManager.Instance.outline == null)
+                {
+                    GameManager.Instance.outline = Instantiate(GameManager.Instance.outPrefab);
+                }
+                GameManager.Instance.mat.color = Color.red;
+                GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
+                
+               //this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             }
         }
         else if (GameManager.Instance.Skill.type == NodeType.Trigger)
         {
             if (name == "Iron" || name == "Spike")
             {
-                this.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                if (GameManager.Instance.outline == null)
+                {
+                    GameManager.Instance.outline = Instantiate(GameManager.Instance.outPrefab);
+                }
+                GameManager.Instance.mat.color = Color.blue;
+                GameManager.Instance.outline.transform.position = this.gameObject.transform.position + Vector3.up;
             }
         }
     }
