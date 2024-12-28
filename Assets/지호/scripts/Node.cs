@@ -23,6 +23,7 @@ public class Node : MonoBehaviour
 
     public int turnCount;
 
+    public bool isfake;
     public bool pause;
 
     private void Awake()

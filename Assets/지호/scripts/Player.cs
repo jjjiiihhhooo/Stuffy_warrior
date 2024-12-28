@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform moveCam;
 
     public Animator anim;
+    public GameObject fakeWall;
     public GameObject arrow;
     public GameObject mm;
     public Vector2 playerPos;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
     public bool isMeat;
 
     public bool isDestroyMeat;
+
+    public bool isfake;
 
     private void Awake()
     {

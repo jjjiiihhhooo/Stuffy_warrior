@@ -42,12 +42,12 @@ public class MeatTrigger : MonoBehaviour
             x++;
             y++;
 
-            if (x < 6) 
+            if (x < GameManager.Instance.NodeManager.Nodess.Length) 
             { 
                 GameManager.Instance.NodeManager.Nodess[x].node[(int)pos.y].meatArea = true;
                 Debug.Log("x = " + x + " y = " + (int)pos.y);
             }
-            if (y < 6) 
+            if (y < GameManager.Instance.NodeManager.Nodess[0].node.Length) 
             { 
                 GameManager.Instance.NodeManager.Nodess[(int)pos.x].node[y].meatArea = true;
                 Debug.Log("x = " + (int)pos.x + " y = " + y);
@@ -86,12 +86,12 @@ public class MeatTrigger : MonoBehaviour
             x++;
             y++;
 
-            if (x < 6)
+            if (x < GameManager.Instance.NodeManager.Nodess.Length)
             {
                 GameManager.Instance.NodeManager.Nodess[x].node[(int)pos.y].meatArea = false;
                 Debug.Log("x = " + x + " y = " + (int)pos.y);
             }
-            if (y < 6)
+            if (y < GameManager.Instance.NodeManager.Nodess[0].node.Length)
             {
                 GameManager.Instance.NodeManager.Nodess[(int)pos.x].node[y].meatArea = false;
                 Debug.Log("x = " + (int)pos.x + " y = " + y);
@@ -103,13 +103,14 @@ public class MeatTrigger : MonoBehaviour
     public void DestroyCall()
     {
         GameManager.Instance.Skill.meatCount--;
+        transform.GetComponentInParent<Node>().type = NodeType.Normal;
         DeSetting();
         StartCoroutine(DestroyCor());
     }
 
     private IEnumerator DestroyCor()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         Destroy(this.gameObject);
     }
 }
